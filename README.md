@@ -13,6 +13,10 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 **Shipped version:** 1.955
 
+## Screenshots
+
+![](https://raw.githubusercontent.com/webmin-devel/webmin/master/media/webmin-demo-basic.gif)
+
 ## Important points
 
 - Only **root** (system user) can connect 
