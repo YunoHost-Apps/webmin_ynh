@@ -74,15 +74,17 @@ ynh_script_progression --message="Configuring nginx web server..." --time --weig
 # Create a dedicated nginx config
 ynh_add_nginx_config
 
-sudo sh -c "echo 'deb http://download.webmin.com/download/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list"
-sudo sh -c "echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list.d/webmin.list"
+ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
 
-wget http://www.webmin.com/jcameron-key.asc
-apt-key add jcameron-key.asc
-rm jcameron-key.asc
+# sudo sh -c "echo 'deb http://download.webmin.com/download/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list"
+# sudo sh -c "echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list.d/webmin.list"
 
-apt-get update
-apt-get install -y webmin
+# wget http://www.webmin.com/jcameron-key.asc
+# apt-key add jcameron-key.asc
+# rm jcameron-key.asc
+
+# apt-get update
+# apt-get install -y webmin
 
 #=================================================
 # MODIFY A CONFIG FILE
