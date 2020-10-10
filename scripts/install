@@ -71,18 +71,9 @@ ynh_install_app_dependencies $pkg_dependencies
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-#ynh_script_progression --message="Setting up source files..." --weight=12
+ynh_script_progression --message="Setting up source files..." --weight=12
 
-#ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
-
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-ynh_script_progression --message="Setting up source files..." --time --weight=1
-
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
+ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -91,23 +82,6 @@ ynh_script_progression --message="Configuring nginx web server..." --weight=11
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..." --time --weight=1
-
-# Create a system user
-ynh_system_user_create --username=$app
-
-#==============================================
-# INSTALL CODIMD
-#==============================================
-ynh_script_progression --message="Building $app... (this will take some time and resources!)" --weight=10
-
-pushd "$final_path" || ynh_die
-	./setup.sh 
-popd || ynh_die
 
 #=================================================
 # MODIFY A CONFIG FILE
