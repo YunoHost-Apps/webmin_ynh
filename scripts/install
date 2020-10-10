@@ -71,9 +71,9 @@ ynh_install_app_dependencies $pkg_dependencies
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-# ynh_script_progression --message="Setting up source files..." --weight=12
+#ynh_script_progression --message="Setting up source files..." --weight=12
 
-# ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
+#ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -113,8 +113,8 @@ popd || ynh_die
 # MODIFY A CONFIG FILE
 #=================================================
 
-ynh_replace_string --match_string="port=10000"   --replace_string="port=$port"   --target_file="/etc/webmin/miniserv.conf"
-ynh_replace_string --match_string="listen=10000"  --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
+ynh_replace_string --match_string="port=10000" --replace_string="port=$port" --target_file="/etc/webmin/miniserv.conf"
+ynh_replace_string --match_string="listen=10000" --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
