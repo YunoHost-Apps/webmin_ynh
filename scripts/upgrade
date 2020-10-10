@@ -22,6 +22,12 @@ admin=$(ynh_app_setting_get --app=$app --key=admin)
 port=$(ynh_app_setting_get --app=$app --key=port)
 
 #=================================================
+# CHECK VERSION
+#=================================================
+
+upgrade_type=$(ynh_check_app_version_changed)
+
+#=================================================
 # CHECK THE PATH
 #=================================================
 
@@ -37,7 +43,7 @@ ynh_script_progression --message="Upgrading nginx web server configuration..." -
 ynh_add_nginx_config
 
 #=================================================
- STOP SYSTEMD SERVICE
+# STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..." --time --weight=1
 
@@ -54,16 +60,16 @@ ynh_install_app_dependencies $pkg_dependencies
 # SPECIFIC UPGRADE
 #=================================================
 
-sudo sh -c "echo 'deb http://download.webmin.com/download/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list"
-sudo sh -c "echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list.d/webmin.list"
+ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
 
-wget http://www.webmin.com/jcameron-key.asc
-apt-key add jcameron-key.asc
-rm jcameron-key.asc
+# sh -c "echo 'deb http://download.webmin.com/download/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list"
+# sh -c "echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list.d/webmin.list"
 
-sudo apt-get update
-sudo apt-get upgrade
+# wget http://www.webmin.com/jcameron-key.asc
+# apt-key add jcameron-key.asc
+# rm jcameron-key.asc
 
+# apt-get update && upgrade
 
 ### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
 ### And create a backup of this file if the checksum is different. So the file will be backed up if the admin had modified it.
@@ -99,6 +105,3 @@ ynh_script_progression --message="Starting webmin web server..." --time --weight
 ynh_systemd_action --service_name=$app --action=enable
 
 ynh_systemd_action --service_name=$app --action=start
-
-
-
