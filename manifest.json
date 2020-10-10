@@ -8,7 +8,7 @@
     },
     "version": "1.955~ynh1",
     "url": "http://www.webmin.com",
-    "license": "BSD 3-Clause",
+    "license": "BSD-3-Clause",
     "maintainer": {
         "name": "Anmol Sharma",
         "email": "anmol@datamol.org"
