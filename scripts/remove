@@ -47,7 +47,7 @@ ynh_remove_nginx_config
 # SPECIFIC REMOVE
 #=================================================
 
-ynh_package_remove $app
+apt-get remove -y --purge $app
 
 #=================================================
 # END OF SCRIPT
