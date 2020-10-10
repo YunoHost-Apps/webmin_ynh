@@ -103,7 +103,11 @@ ynh_store_file_checksum --file="/etc/webmin/miniserv.conf"
 ynh_script_progression --message="Configuring SSOwat..." --weight=1
 
 # Restrict access to admin only
-yunohost app addaccess --users=$admin $app
+# yunohost app addaccess --users=$admin $app
+
+if ! ynh_permission_exists --permission "admin"; then
+	ynh_permission_create --permission "admin" --url "/admin" --allowed $admin
+fi
 
 #=================================================
 # START SYSTEMD SERVICE
