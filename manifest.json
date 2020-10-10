@@ -1,9 +1,10 @@
 {
     "name": "Webmin",
     "id": "webmin",
+    "packaging_format": 1,
     "description": {
-        "en": "Webmin is a web-based interface for system administration for Unix.",
-        "fr": "Webmin est une interface web d'administration système pour Unix."
+        "en": "Web-based interface for system administration for Unix.",
+        "fr": "Interface Web d'administration système pour Unix."
     },
     "version": "1.941~ynh1",
     "url": "http://www.webmin.com",
@@ -13,9 +14,9 @@
         "email": "anmol@datamol.org"
     },
      "requirements": {
-        "yunohost": ">= 3.0.0"
+        "yunohost": ">= 3.8.1"
     },
-    "multi_instance": "false",
+    "multi_instance": false,
     "services": [
         "nginx"
     ],
@@ -25,7 +26,8 @@
                 "name": "domain",
                 "type": "domain",
                 "ask": {
-                    "en": "Choose a domain for Webmin"
+                    "en": "Choose a domain for Webmin",
+                    "fr": "Choisissez un nom de domaine pour Webmin"
                 },
                 "example": "domain.org"
             },
@@ -33,7 +35,8 @@
                 "name": "admin",
                 "type": "user",
                 "ask": {
-                    "en": "Choose the Webmin administrator (must be an existing YunoHost user)"
+                    "en": "Choose the Webmin administrator (must be an existing YunoHost user)",
+                    "fr": "Choisissez l'administrateur Webmin (doit être un utilisateur YunoHost existant)"
                 },
                 "example": "johndoe"
             }
