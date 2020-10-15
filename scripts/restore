@@ -43,6 +43,7 @@ ynh_webpath_available --domain=$domain --path_url=$path_url \
 #=================================================
 # RESTORE THE NGINX CONFIGURATION
 #=================================================
+ynh_script_progression --message="Restoring the nginx configuration..."
 
 ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
@@ -54,34 +55,37 @@ ynh_script_progression --message="Reinstalling dependencies..." --weight=10
 # Define and install dependencies
 ynh_install_app_dependencies $pkg_dependencies
 
-#=================================================
-# REINSTALL WEBMIN
-#=================================================
-ynh_script_progression --message="Setting up source files..." --weight=12
-
-ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
+# Install Webmin
+ynh_install_extra_app_dependencies --repo="deb https://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="https://download.webmin.com/jcameron-key.asc"
 
 #=================================================
-# MODIFY A CONFIG FILE
+# RESTORE VARIOUS FILES
 #=================================================
+ynh_script_progression --message="Restoring the various files..."
 
-ynh_replace_string --match_string="port=10000" --replace_string="port=$port" --target_file="/etc/webmin/miniserv.conf"
-ynh_replace_string --match_string="listen=10000" --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-
-# Restrict access to admin only
-yunohost app addaccess --users=$admin $app
+ynh_restore_file --origin_path="/etc/webmin/miniserv.conf"
 
 #=================================================
-# RELOAD NGINX AND START WEBMIN
+# INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Starting webmin web server..." --weight=3
+ynh_script_progression --message="Integrating service in YunoHost..."
 
-ynh_systemd_action --service_name=$app --action=enable
-ynh_systemd_action --service_name=$app --action=start
+yunohost service add $app --description "Webmin Daemon"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..."
+
+ynh_systemd_action --service_name=$app --action="start" --line_match="Started LSB"
+
+#=================================================
+# GENERIC FINALIZATION
+#=================================================
+# RELOAD NGINX
+#=================================================
+ynh_script_progression --message="Reloading nginx web server..."
+
 ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================

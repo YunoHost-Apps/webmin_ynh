@@ -22,15 +22,9 @@ admin=$(ynh_app_setting_get --app=$app --key=admin)
 port=$(ynh_app_setting_get --app=$app --key=port)
 
 #=================================================
-# CHECK VERSION
-#=================================================
-
-upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up Webmin before upgrading (may take a while)..." --weight=3
+ynh_script_progression --message="Backing up the app before upgrading (may take a while)..."
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
@@ -42,19 +36,28 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
-# NGINX CONFIGURATION
+# CHECK THE PATH
 #=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=3
 
-# Create a dedicated NGINX config
-ynh_add_nginx_config
+# Normalize the URL path syntax
+path_url=$(ynh_normalize_url_path --path_url=$path_url)
 
+#=================================================
+# STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --weight=2
+ynh_script_progression --message="Stopping a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action="stop"  --line_match="Stopped LSB"
+
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Upgrading nginx web server configuration..."
+
+# Create a dedicated nginx config
+ynh_add_nginx_config
 
 #=================================================
 # UPGRADE DEPENDENCIES
@@ -63,42 +66,39 @@ ynh_script_progression --message="Upgrading dependencies..." --weight=1
 
 ynh_install_app_dependencies $pkg_dependencies
 
+# Install Webmin
+ynh_backup_if_checksum_is_different --file="/etc/webmin/miniserv.conf"
+ynh_install_extra_app_dependencies --repo="deb https://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="https://download.webmin.com/jcameron-key.asc"
+
 #=================================================
 # INSTALL WEBMIN
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=30
-
-ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
-
-#=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-
-### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
-ynh_backup_if_checksum_is_different "/etc/webmin/miniserv.conf"
+ynh_script_progression --message="Modifying a config file..."
 
 ynh_replace_string --match_string="port=10000"   --replace_string="port=$port"   --target_file="/etc/webmin/miniserv.conf"
 ynh_replace_string --match_string="listen=10000"  --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
 
 # Recalculate and store the checksum of the file for the next upgrade.
-ynh_store_file_checksum "/etc/webmin/miniserv.conf"
+ynh_store_file_checksum --file="/etc/webmin/miniserv.conf"
 
 #=================================================
-# SETUP SSOWAT
+# GENERIC FINALIZATION
 #=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..."
 
-# Restrict access to admin only
-# yunohost app addaccess --users=$admin $app
+yunohost service add $app --description "Webmin Daemon"
 
-# #Make app public if necessary
-# if [ $is_public -eq 1 ]
-# then
-# 	# unprotected_uris allows SSO credentials to be passed anyway
-# 	ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
-# Create the admin permission if needed
-if ! ynh_permission_exists --permission "admin"; then
-	ynh_permission_create --permission "admin" --url "/admin" --allowed $admin
-fi
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..."
+
+ynh_systemd_action --service_name=$app --action="start" --line_match="Started LSB"
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================

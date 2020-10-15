@@ -22,8 +22,6 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 - Only **root** (system user) can connect 
 - Webmin will **update itself** when system updates are run. So no need to **run upgrade script** once installed.
 - Only **user** given permission at time of the installation can **access** the Webmin 
-- Installation can only be done on **root path**. e.g. webmin.domain.tld 
-- No **multi-instance** for webmin as it is a system integrated app 
 
 ## Links
 

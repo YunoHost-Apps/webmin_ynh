@@ -58,22 +58,17 @@ ynh_script_progression --message="Configuring firewall..." --weight=1
 
 # Find an available port
 port=$(ynh_find_port --port=10000)
-# Open this port
 ynh_app_setting_set --app=$app --key=port --value=$port
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
+ynh_script_progression --message="Installing dependencies..." --weight=12
 
 ynh_install_app_dependencies $pkg_dependencies
 
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-ynh_script_progression --message="Setting up source files..." --weight=12
-
-ynh_install_extra_app_dependencies --repo="deb http://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="http://www.webmin.com/jcameron-key.asc"
+# Install Webmin
+ynh_install_extra_app_dependencies --repo="deb https://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="https://download.webmin.com/jcameron-key.asc"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -84,18 +79,39 @@ ynh_script_progression --message="Configuring nginx web server..." --weight=11
 ynh_add_nginx_config
 
 #=================================================
+# SPECIFIC SETUP
+#=================================================
 # MODIFY A CONFIG FILE
 #=================================================
+ynh_script_progression --message="Modifying a config file..." --weight=1
 
-ynh_replace_string --match_string="port=10000" --replace_string="port=$port" --target_file="/etc/webmin/miniserv.conf"
-ynh_replace_string --match_string="listen=10000" --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
+ynh_replace_string --match_string="port=10000"   --replace_string="port=$port"   --target_file="/etc/webmin/miniserv.conf"
+ynh_replace_string --match_string="listen=10000"  --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
+ynh_script_progression --message="Storing the config file checksum..." --weight=1
 
 # Calculate and store the config file checksum into the app settings
 ynh_store_file_checksum --file="/etc/webmin/miniserv.conf"
+
+#=================================================
+# GENERIC FINALIZATION
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+
+yunohost service add $app --description "Webmin Daemon"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..."
+
+# Start a systemd service
+ynh_systemd_action --service_name=$app --action="start" --line_match="Started LSB"
 
 #=================================================
 # SETUP SSOWAT
