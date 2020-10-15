@@ -28,7 +28,7 @@ port=$(ynh_app_setting_get --app=$app --key=port)
 # Remove the service from the list of services known by Yunohost (added from `yunohost service add`)
 if ynh_exec_warn_less yunohost service status $app >/dev/null
 then
-	ynh_script_progression --message="Removing $app service integration..."
+	ynh_script_progression --message="Removing Webmin service integration..."
 	yunohost service remove $app
 fi
 
@@ -73,4 +73,4 @@ fi
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Removal of $app completed"
+ynh_script_progression --message="Removal of Webmin completed"

@@ -73,9 +73,9 @@ ynh_install_extra_app_dependencies --repo="deb https://download.webmin.com/downl
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring nginx web server..." --weight=11
+ynh_script_progression --message="Configuring NGINX web server..." --weight=11
 
-# Create a dedicated nginx config
+# Create a dedicated NGINX config
 ynh_add_nginx_config
 
 #=================================================
