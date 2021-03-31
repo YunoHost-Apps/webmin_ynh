@@ -77,7 +77,7 @@ yunohost service add $app --description "Webmin Daemon"
 #=================================================
 ynh_script_progression --message="Starting a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --line_match="Started LSB"
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # GENERIC FINALIZATION

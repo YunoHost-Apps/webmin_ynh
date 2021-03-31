@@ -108,10 +108,9 @@ yunohost service add $app --description "Webmin Daemon"
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..."
+ynh_script_progression --message="Starting a systemd service..." --weight=2
 
-# Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --line_match="Started LSB"
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # SETUP SSOWAT
@@ -124,13 +123,6 @@ ynh_script_progression --message="Configuring SSOwat..." --weight=1
 if ! ynh_permission_exists --permission "admin"; then
 	ynh_permission_create --permission="admin" --url="/admin" --allowed=$admin
 fi
-
-#=================================================
-# START SYSTEMD SERVICE
-#=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=2
-
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # RELOAD NGINX
