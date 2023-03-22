@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # Webmin for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/webmin.svg)](https://dash.yunohost.org/appci/app/webmin) ![Working status](https://ci-apps.yunohost.org/ci/badges/webmin.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/webmin.maintain.svg)
+
 [![Install Webmin with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=webmin)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -17,7 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Webmin is a web-based interface for system administration for Unix. Using any modern web browser, you can setup user accounts, Apache, DNS, file sharing and much more. Webmin removes the need to manually edit Unix configuration files like `/etc/passwd`, and lets you manage a system from the console or remotely.
 
-**Shipped version:** 2.013~ynh1
+**Shipped version:** 2.021~ynh1
 
 ## Screenshots
 
