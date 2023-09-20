@@ -35,7 +35,6 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://github.com/webmin/webmin/releases/download/2.102/webmin_2.102_all.deb"
         sha256 = "1f6e22fd9874e9f0d5cab8c0b848928c164569ba8dd441616a2f637f618beafe"
-        format = "deb"
         rename = "webmin.deb"
 
     [resources.system_user]
