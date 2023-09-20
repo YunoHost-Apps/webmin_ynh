@@ -38,15 +38,6 @@ dpkg --install $tempdir/webmin.deb
 ynh_exec_warn_less ynh_secure_remove --file="$tempdir"
 
 #=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..."
-
-# Install Webmin
-ynh_backup_if_checksum_is_different --file="/etc/webmin/miniserv.conf"
-ynh_install_extra_app_dependencies --repo="deb https://download.webmin.com/download/repository sarge contrib" --package="webmin" --key="https://download.webmin.com/jcameron-key.asc"
-
-#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading NGINX web server configuration..."
@@ -90,7 +81,7 @@ yunohost service add $app --description="Webmin Daemon"
 #=================================================
 ynh_script_progression --message="Starting a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="restart" --line_match="Started LSB" --log_path="systemd"
+ynh_systemd_action --service_name=$app --action="restart" --line_match="Started Webmin server daemon" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
