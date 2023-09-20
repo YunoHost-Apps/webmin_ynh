@@ -37,6 +37,8 @@ ram.runtime = "50M"
         sha256 = "1f6e22fd9874e9f0d5cab8c0b848928c164569ba8dd441616a2f637f618beafe"
         rename = "webmin.deb"
 
+    [resources.ports]
+    
     [resources.system_user]
 
     [resources.install_dir]
@@ -50,6 +52,6 @@ ram.runtime = "50M"
     [resources.apt]
     packages = "perl, libnet-ssleay-perl, openssl, libauthen-pam-perl, libpam-runtime, libio-pty-perl, apt-show-versions, shared-mime-info"
 
-    extras.webmin.repo = "deb https://download.webmin.com/download/repository sarge contrib"
-    extras.webmin.key = "https://download.webmin.com/jcameron-key.asc"
-    extras.webmin.packages = "webmin"
+    #extras.webmin.repo = "deb https://download.webmin.com/download/repository sarge contrib"
+    #extras.webmin.key = "https://download.webmin.com/jcameron-key.asc"
+    #extras.webmin.packages = "webmin"
