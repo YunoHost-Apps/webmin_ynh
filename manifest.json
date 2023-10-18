@@ -6,7 +6,7 @@
         "en": "Web-based interface for system administration for Unix",
         "fr": "Interface Web d'administration système pour Unix"
     },
-    "version": "2.102~ynh1",
+    "version": "2.104~ynh1",
     "url": "http://www.webmin.com",
     "upstream": {
         "license": "BSD-3-Clause",
