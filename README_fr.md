@@ -18,7 +18,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 Webmin est une interface Web pour l'administration système pour Unix. À l'aide de n'importe quel navigateur Web moderne, vous pouvez configurer des comptes d'utilisateurs, Apache, DNS, le partage de fichiers et bien plus encore. Webmin supprime le besoin de modifier manuellement les fichiers de configuration Unix comme « /etc/passwd » et vous permet de gérer un système depuis la console ou à distance.
 
-**Version incluse :** 2.104~ynh2
+**Version incluse :** 2.105~ynh1
 
 ## Captures d’écran
 
