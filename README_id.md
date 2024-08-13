@@ -18,7 +18,7 @@ Ini TIDAK boleh diedit dengan tangan.
 
 Webmin is a web-based interface for system administration for Unix. Using any modern web browser, you can setup user accounts, Apache, DNS, file sharing and much more. Webmin removes the need to manually edit Unix configuration files like `/etc/passwd`, and lets you manage a system from the console or remotely.
 
-**Versi terkirim:** 2.201~ynh1
+**Versi terkirim:** 2.202~ynh1
 
 ## Tangkapan Layar
 
@@ -27,7 +27,7 @@ Webmin is a web-based interface for system administration for Unix. Using any mo
 ## Dokumentasi dan sumber daya
 
 - Website aplikasi resmi: <http://www.webmin.com>
-- Repositori kode aplikasi hulu: <https://github.com/webmin/webmin>
+- Depot kode aplikasi hulu: <https://github.com/webmin/webmin>
 - Gudang YunoHost: <https://apps.yunohost.org/app/webmin>
 - Laporkan bug: <https://github.com/YunoHost-Apps/webmin_ynh/issues>
 

@@ -18,7 +18,7 @@ Il NE doit PAS être modifié à la main.
 
 Webmin est une interface Web pour l'administration système pour Unix. À l'aide de n'importe quel navigateur Web moderne, vous pouvez configurer des comptes d'utilisateurs, Apache, DNS, le partage de fichiers et bien plus encore. Webmin supprime le besoin de modifier manuellement les fichiers de configuration Unix comme « /etc/passwd » et vous permet de gérer un système depuis la console ou à distance.
 
-**Version incluse :** 2.201~ynh1
+**Version incluse :** 2.202~ynh1
 
 ## Captures d’écran
 
