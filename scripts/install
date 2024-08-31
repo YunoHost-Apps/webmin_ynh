@@ -1,18 +1,12 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..."
+ynh_script_progression "Setting up source files..."
 
 tempdir="$(mktemp -d)"
 # Download, check integrity, uncompress and patch the source from app.src
@@ -20,57 +14,55 @@ ynh_setup_source --dest_dir="$tempdir"
 
 dpkg --install $tempdir/webmin.deb
 
-ynh_exec_warn_less ynh_secure_remove --file="$tempdir"
+ynh_safe_rm "$tempdir"
 
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..."
+ynh_script_progression "Configuring NGINX web server..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 #=================================================
 # SPECIFIC SETUP
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..."
+ynh_script_progression "Adding $app's configuration..."
 
-ynh_replace_string --match_string="port=10000" --replace_string="port=$port" --target_file="/etc/webmin/miniserv.conf"
-ynh_replace_string --match_string="listen=10000" --replace_string="listen=$port" --target_file="/etc/webmin/miniserv.conf"
+ynh_replace --match="port=10000" --replace="port=$port" --file="/etc/webmin/miniserv.conf"
+ynh_replace --match="listen=10000" --replace="listen=$port" --file="/etc/webmin/miniserv.conf"
 
 # Calculate and store the config file checksum into the app settings
-ynh_store_file_checksum --file="/etc/webmin/miniserv.conf"
+ynh_store_file_checksum "/etc/webmin/miniserv.conf"
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..."
+ynh_script_progression "Configuring $app's systemd service..."
 
 # Create a dedicated systemd config
 systemctl daemon-reload
 systemctl enable $app.service --quiet
 
 #=================================================
-# GENERIC FINALIZATION
-#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..."
+ynh_script_progression "Integrating service in YunoHost..."
 
 yunohost service add $app --description="Webmin Daemon"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..."
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="restart" --line_match="Started Webmin server daemon" --log_path="systemd"
+ynh_systemctl --service=$app --action="restart" --wait_until="Started Webmin server daemon" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed"
+ynh_script_progression "Installation of $app completed"
