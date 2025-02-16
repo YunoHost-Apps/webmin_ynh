@@ -16,7 +16,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --line_match="Stopped LSB" --log_path="systemd"
+ynh_systemd_action --service_name=$app --action="stop" --line_match="Stopped " --log_path="systemd"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
@@ -31,7 +31,7 @@ ynh_change_url_nginx_config
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --line_match="Started LSB" --log_path="systemd"
+ynh_systemd_action --service_name=$app --action="start" --line_match="Started " --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
