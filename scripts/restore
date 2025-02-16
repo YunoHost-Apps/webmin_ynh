@@ -57,7 +57,7 @@ yunohost service add $app --description="Webmin Daemon"
 #=================================================
 ynh_script_progression --message="Starting a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="restart" --line_match="Started LSB" --log_path="systemd"
+ynh_systemd_action --service_name=$app --action="restart" --line_match="Started " --log_path="systemd"
 
 #=================================================
 # GENERIC FINALIZATION
