@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "webmin"
@@ -5,7 +7,7 @@ name = "Webmin"
 description.en = "Web-based interface for system administration"
 description.fr = "Interface Web d'administration système"
 
-version = "2.301~ynh1"
+version = "2.302~ynh1"
 
 maintainers = []
 
@@ -18,8 +20,11 @@ code = "https://github.com/webmin/webmin"
 yunohost = ">= 11.2"
 architectures = "all"
 multi_instance = false
+
 ldap = false
+
 sso = false
+
 disk = "50M"
 ram.build = "200M"
 ram.runtime = "50M"
@@ -36,14 +41,12 @@ ram.runtime = "50M"
     type = "user"
 
 [resources]
-        [resources.sources.main]
-        url = "https://github.com/webmin/webmin/releases/download/2.301/webmin_2.301_all.deb"
-        sha256 = "8d46eb9a99f02101a17d6f8b07e0894ba031cfa6a4924c49ac7adbe6d8005ba6"
-        rename = "webmin.deb"
-        autoupdate.strategy = "latest_github_release"
-        autoupdate.asset = "^webmin_.*_all.deb$"
-
-    [resources.ports]
+    [resources.sources.main]
+    url = "https://github.com/webmin/webmin/releases/download/2.302/webmin_2.302_all.deb"
+    sha256 = "841a770e1bcc30662f93ba9c0bab1272c669e55b95d73d62410ab1692483acb7"
+    rename = "webmin.deb"
+    autoupdate.strategy = "latest_github_release"
+    autoupdate.asset = "^webmin_.*_all.deb$"
 
     [resources.system_user]
 
@@ -54,6 +57,8 @@ ram.runtime = "50M"
     admin.url = "/admin"
     admin.show_tile = false
     admin.allowed = "admins"
+
+    [resources.ports]
 
     [resources.apt]
     packages = "perl, libnet-ssleay-perl, openssl, libauthen-pam-perl, libpam-runtime, libio-pty-perl, apt-show-versions, shared-mime-info"
