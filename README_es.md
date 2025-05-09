@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Webmin para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/webmin.svg)](https://ci-apps.yunohost.org/ci/apps/webmin/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/webmin.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/webmin.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/webmin)](https://ci-apps.yunohost.org/ci/apps/webmin/)
+![Estado funcional](https://apps.yunohost.org/badge/state/webmin)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/webmin)
 
 [![Instalar Webmin con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=webmin)
 
@@ -18,7 +20,7 @@ No se debe editar a mano.
 
 Webmin is a web-based interface for system administration for Unix. Using any modern web browser, you can setup user accounts, Apache, DNS, file sharing and much more. Webmin removes the need to manually edit Unix configuration files like `/etc/passwd`, and lets you manage a system from the console or remotely.
 
-**Versión actual:** 2.202~ynh1
+**Versión actual:** 2.303~ynh1
 
 ## Capturas
 
@@ -33,7 +35,7 @@ Webmin is a web-based interface for system administration for Unix. Using any mo
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/webmin_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/webmin_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
