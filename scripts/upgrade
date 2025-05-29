@@ -63,7 +63,7 @@ yunohost service add $app --description="Webmin Daemon"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="restart" --log_path="systemd" --wait_until="Started Webmin server daemon"
+ynh_systemctl --service=$app --action="restart" --log_path="systemd" #--wait_until="Started Webmin server daemon"
 
 #=================================================
 # END OF SCRIPT
