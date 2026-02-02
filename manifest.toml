@@ -7,7 +7,7 @@ name = "Webmin"
 description.en = "Web-based interface for system administration"
 description.fr = "Interface Web d'administration système"
 
-version = "2.610~ynh1"
+version = "2.621~ynh1"
 
 maintainers = []
 
@@ -42,8 +42,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/webmin/webmin/releases/download/2.610/webmin_2.610_all.deb"
-    sha256 = "c72d6e12a676762eff59a1ee3101c6db353fdc46bae5072b2620678fe0884377"
+    url = "https://github.com/webmin/webmin/releases/download/2.621/webmin_2.621_all.deb"
+    sha256 = "6c031c59f30c27e2ebbb025c9a2a435e587b6f59bac8638e0236c83f42c3dde4"
     rename = "webmin.deb"
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = "^webmin_.*_all.deb$"
