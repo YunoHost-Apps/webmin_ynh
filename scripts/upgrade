@@ -30,6 +30,11 @@ ynh_script_progression "Updating $app's configuration files..."
 ynh_replace --match="port=10000" --replace="port=$port" --file="/etc/webmin/miniserv.conf"
 ynh_replace --match="listen=10000" --replace="listen=$port" --file="/etc/webmin/miniserv.conf"
 
+# https://webmin.com/docs/tutorials/proxying-to-webmin-with-nginx/
+echo "referers=$domain" >> /etc/webmin/config
+echo "redirect_ssl=1" >> /etc/webmin/miniserv.conf
+echo "redirect_host=$domain" >> /etc/webmin/miniserv.conf
+
 # Recalculate and store the checksum of the file for the next upgrade.
 ynh_store_file_checksum "/etc/webmin/miniserv.conf"
 
